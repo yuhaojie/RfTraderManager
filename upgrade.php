@@ -1,7 +1,7 @@
 <?php
 
 // 获取模块信息
-if (!($addon = \common\models\sys\Addons::findByName('RfTrader')))
+if (!($addon = \common\models\sys\Addons::findByName('RfTraderManager')))
 {
     return false;
 }

@@ -5,7 +5,8 @@ DROP TABLE IF EXISTS `rf_addon_trader_list`;
 CREATE TABLE `rf_addon_trader_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL COMMENT '姓名',
-  `phone` varchar(50) NOT NULL COMMENT '电话',
+  `wxname` varchar(50) NOT NULL COMMENT '姓名',
+  `phone` varchar(50) COMMENT '电话',
   `department` varchar(50) NOT NULL COMMENT '部门',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='销售员表';

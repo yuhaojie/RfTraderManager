@@ -1,5 +1,5 @@
 <?php
-namespace addons\RfTrader;
+namespace addons\RfTraderManager;
 
 /**
  * Class Addon
@@ -13,7 +13,7 @@ class AddonConfig
      * @var array
      */
     public $info = [
-        'name' => 'RfSignShoppingDay',
+        'name' => 'RfTraderManager',
         'title' => '推广管理',
         'brief_introduction' => '管理推广',
         'description' => '管理推广渠道和人员',

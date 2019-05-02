@@ -1,5 +1,5 @@
 <?php
-    namespace addons\RfTrader\backend\controllers;
+    namespace addons\RfTraderManager\backend\controllers;
 
     use common\components\CurdTrait;
     use common\controllers\AddonsBaseController;

@@ -5,7 +5,7 @@
      * Date: 2019/4/30
      * Time: 14:50
      */
-    namespace addons\RfTrader\common\models;
+    namespace addons\RfTraderManager\common\models;
 
     use Yii;
 
