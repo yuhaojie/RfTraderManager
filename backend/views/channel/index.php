@@ -3,7 +3,7 @@
 use yii\widgets\LinkPager;
 use common\helpers\AddonUrl;
 
-$this->title = '用户管理';
+$this->title = '渠道管理';
 $this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
 
@@ -18,9 +18,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>头像</th>
-                        <th>昵称</th>
-                        <th>openid</th>
+                        <th>ID</th>
+                        <th>渠道名称</th>
                         <th>创建时间</th>
                     </tr>
                     </thead>
@@ -28,9 +27,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     <?php foreach($models as $model){ ?>
                         <tr id = <?= $model->id; ?>>
                             <td><?= $model->id; ?></td>
-                            <td><img src="<?= $model->avatar; ?>" alt="" width="45" height="45"></td>
-                            <td><?= $model->nickname; ?></td>
-                            <td><?= $model->openid; ?></td>
+                            <td><?= $model->name; ?></td>
                             <td><?= Yii::$app->formatter->asDatetime($model->created_at); ?></td>
                         </tr>
                     <?php } ?>

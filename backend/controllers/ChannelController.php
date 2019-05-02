@@ -19,7 +19,7 @@
         /**
          * @var string
          */
-        public $modelClass = '\addons\RfTrader\common\models\TraderChannel';
+        public $modelClass = '\addons\RfTraderManager\common\models\TraderChannel';
 
         /**
          * 首页

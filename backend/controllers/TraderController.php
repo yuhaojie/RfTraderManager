@@ -19,7 +19,7 @@
         /**
          * @var string
          */
-        public $modelClass = '\addons\RfTrader\common\models\TraderList';
+        public $modelClass = '\addons\RfTraderManager\common\models\TraderList';
 
         /**
          * 首页
