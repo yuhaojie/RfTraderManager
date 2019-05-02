@@ -9,7 +9,8 @@ CREATE TABLE `rf_addon_trader_list` (
   `phone` varchar(50) COMMENT '电话',
   `department` varchar(50) NOT NULL COMMENT '部门',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态(-1:已删除,0:禁用,1:正常)',
-  `created_at` int(10) DEFAULT '0' COMMENT '创建时间',
+  `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='销售员表';
 
@@ -22,9 +23,10 @@ CREATE TABLE `rf_addon_trader_log` (
   `wxid` varchar(255) NOT NULL,
   `channels` varchar(255) DEFAULT NULL,
   `fansum` int(11) DEFAULT '0',
-  `record_date` date DEFAULT NULL COMMENT '日期',
   `record_image` varchar(1024) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='考勤表';
 
 -- ----------------------------
@@ -34,8 +36,11 @@ DROP TABLE IF EXISTS `rf_addon_trader_channel`;
 CREATE TABLE `rf_addon_trader_channel` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自动编号',
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '渠道名称',
+  `icon` varchar(100) CHARACTER SET utf8mb4  DEFAULT '' COMMENT '标识',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态(-1:已删除,0:禁用,1:正常)',
-  `created_at` int(10) DEFAULT '0' COMMENT '创建时间',
+  `description` char(140) DEFAULT '' COMMENT '描述',
+  `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='渠道表';
 

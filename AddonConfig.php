@@ -3,7 +3,7 @@ namespace addons\RfTraderManager;
 
 /**
  * Class Addon
- * @package addons\RfSignShoppingDay
+ * @package addons\RfTraderManager
  */
 class AddonConfig
 {
@@ -112,31 +112,37 @@ class AddonConfig
             'route' => 'trader/index',
             'icon' => '',
         ],
+        /*
         [
             'title' => '销售登录',
             'route' => 'trader/logon',
             'icon'  => '',
         ],
+        */
         [
             'title' => '考勤管理',
             'route' => 'market/index',
             'icon' => ''
         ],
+        /*
         [
             'title' => '考勤录入',
             'route' => 'market/record',
             'icon' => ''
         ],
+        */
         [
             'title' => '渠道管理',
             'route' => 'channel/index',
             'icon' => ''
         ],
+        /*
         [
             'title' => '增加渠道',
             'route' => 'channel/add',
             'icon' => ''
         ],
+        */
     ];
 
     /**

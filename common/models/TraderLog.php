@@ -42,4 +42,10 @@
                 'logdate' => '考勤日期',
             ];
         }
+
+        public function getUser()
+        {
+            return $this->hasOne(TraderList::class, ['id' => 'id']);
+        }
+
     }

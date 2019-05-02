@@ -3,7 +3,7 @@
 
     use common\components\CurdTrait;
     use common\controllers\AddonsBaseController;
-    use addons\RfSignShoppingDay\common\models\Award;
+    use addons\RfTraderManager\common\models\TraderList;
     use common\enums\StatusEnum;
     use yii\data\Pagination;
 

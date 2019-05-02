@@ -1,5 +1,5 @@
 <?php
-namespace addons\RfTrader\backend\assets;
+namespace addons\RfTraderManager\backend\assets;
 
 use yii\web\AssetBundle;
 
@@ -14,7 +14,7 @@ class Asset extends AssetBundle
     /**
      * @var string
      */
-    public $sourcePath = '@addons/RfTrader/resources/backend/';
+    public $sourcePath = '@addons/RfTraderManager/resources/backend/';
 
     public $css = [
 

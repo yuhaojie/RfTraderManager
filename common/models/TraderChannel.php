@@ -26,6 +26,11 @@
         {
             return [
                 [['name'], 'required'],
+                [['status', 'updated_at'], 'integer'],
+                [['created_at'], 'safe'],
+                [['name'], 'string', 'max' => 50],
+                [['icon'], 'string', 'max' => 100],
+                [['description'], 'string', 'max' => 140],
             ];
         }
 
