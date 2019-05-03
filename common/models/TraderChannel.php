@@ -6,6 +6,7 @@
      * Time: 14:50
      */
     namespace addons\RfTraderManager\common\models;
+    use common\enums\StatusEnum;
 
     use Yii;
 
@@ -43,5 +44,12 @@
                 'id' => 'ID',
                 'name' => '渠道名',
             ];
+        }
+
+        static public function getList()
+        {
+            $query = self::find();
+            //            $count = $query->count();
+            return $query->select(['id', 'name'])->andWhere(['>=', 'status', StatusEnum::DISABLED])->all();
         }
     }

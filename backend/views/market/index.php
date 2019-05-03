@@ -1,10 +1,10 @@
 <?php
-
-use yii\widgets\LinkPager;
+use yii\grid\GridView;
 use common\helpers\AddonUrl;
+use common\helpers\AddonHtmlHelper;
 
-$this->title = '中奖记录';
-$this->params['breadcrumbs'][] = ['label' => $this->title];
+$this->title = '渠道管理';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row">
@@ -13,38 +13,79 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
             <div class="box-header">
                 <h3 class="box-title"><?= $this->title; ?></h3>
                 <div class="box-tools">
-                    <a class="btn btn-primary btn-xs" href="<?= AddonUrl::to(['export'])?>"><i class="fa fa-mail-forward"></i>  导出记录</a>
+                    <?= AddonHtmlHelper::create(['edit']); ?>
                 </div>
             </div>
+            <!-- /.box-header -->
             <div class="box-body table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>用户昵称</th>
-                        <th>奖品名称</th>
-                        <th>奖品类型</th>
-                        <th>创建时间</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach($models as $model){ ?>
-                        <tr id = <?= $model->id; ?>>
-                            <td><?= $model->id; ?></td>
-                            <td><?= $model->user->nickname; ?></td>
-                            <td><?= $model->award_title; ?></td>
-                            <td><?= $model->award_cate_id == 1 ? '<span class="label label-primary">积分</span>' : '<span class="label label-info">卡卷</span>'; ?></td>
-                            <td><?= Yii::$app->formatter->asDatetime($model->created_at); ?></td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
+                <?= GridView::widget([
+                    'dataProvider' => $dataProvider,
+                    'filterModel' => $searchModel,
+                    //重新定义分页样式
+                    'tableOptions' => ['class' => 'table table-hover'],
+                    'columns' => [
+                        [
+                            'class' => 'yii\grid\SerialColumn',
+                            'visible' => false, // 不显示#
+                        ],
+                        [
+                        		'label' => 'ID',
+                        		'attribute' => 'id',
+                        		'filter' => false,
+						],
+                        [
+                            'label' => '姓名',
+                            'attribute' => 'traderList.name',
+                            'filter' => true, //不显示搜索框
+                            'format' => 'text'
+                            //'format' => ['date', 'php:Y-m-d H:i:s'],
+                        ],
+                        [
+                            'label' => '微信名',
+                            'attribute' => 'traderList.wxname',
+                            'filter' => true, //不显示搜索框
+                            'format' => 'text'
+                            //'format' => ['date', 'php:Y-m-d H:i:s'],
+                        ],
+                        'wxid',
+                        //'channels',
+                        'fansum',
+                        [
+                            'label' => '考勤图片',
+                            'attribute' => 'record_image',
+                            'filter' => false, //不显示搜索框
+                            //'format' => ['date', 'php:Y-m-d H:i:s'],
+                        ],
+                        [
+                            'label'=> '创建日期',
+                            'attribute' => 'created_at',
+                            'filter' => false, //不显示搜索框
+                            'format' => ['date', 'php:Y-m-d H:i:s'],
+                        ],
+                        [
+                            'label'=> '更新日期',
+                            'attribute' => 'updated_at',
+                            'filter' => false, //不显示搜索框
+                            'format' => ['date', 'php:Y-m-d H:i:s'],
+                        ],
+                        [
+                            'header' => "操作",
+                            'class' => 'yii\grid\ActionColumn',
+                            'template'=> '{edit} {status} {delete}',
+                            'buttons' => [
+                                'edit' => function ($url, $model, $key) {
+                                    return AddonHtmlHelper::edit(['edit', 'id' => $model->id]);
+                                },
+                                'delete' => function ($url, $model, $key) {
+                                    return AddonHtmlHelper::delete(['hide', 'id' => $model->id]);
+                                },
+                            ],
+                        ],
+                    ],
+                ]); ?>
+                <!-- /.box-body -->
             </div>
-            <div class="box-footer">
-                <?= LinkPager::widget([
-                    'pagination' => $pages
-                ]);?>
-            </div>
+            <!-- /.box -->
         </div>
     </div>
 </div>

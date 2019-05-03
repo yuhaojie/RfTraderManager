@@ -1,10 +1,10 @@
 <?php
-
-use yii\widgets\LinkPager;
+use yii\grid\GridView;
 use common\helpers\AddonUrl;
+use common\helpers\AddonHtmlHelper;
 
-$this->title = '用户管理';
-$this->params['breadcrumbs'][] = ['label' => $this->title];
+$this->title = '销售管理';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row">
@@ -12,36 +12,60 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title"><?= $this->title; ?></h3>
+                <div class="box-tools">
+                    <?= AddonHtmlHelper::create(['edit']); ?>
+                </div>
             </div>
+            <!-- /.box-header -->
             <div class="box-body table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>头像</th>
-                        <th>昵称</th>
-                        <th>openid</th>
-                        <th>创建时间</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach($models as $model){ ?>
-                        <tr id = <?= $model->id; ?>>
-                            <td><?= $model->id; ?></td>
-                            <td><img src="<?= $model->avatar; ?>" alt="" width="45" height="45"></td>
-                            <td><?= $model->nickname; ?></td>
-                            <td><?= $model->openid; ?></td>
-                            <td><?= Yii::$app->formatter->asDatetime($model->created_at); ?></td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
+                <?= GridView::widget([
+                    'dataProvider' => $dataProvider,
+                    'filterModel' => $searchModel,
+                    //重新定义分页样式
+                    'tableOptions' => ['class' => 'table table-hover'],
+                    'columns' => [
+                        [
+                            'class' => 'yii\grid\SerialColumn',
+                            'visible' => false, // 不显示#
+                        ],
+                        'id',
+                        'name',
+                        'wxname',
+                        'phone',
+                        'department',
+                        [
+                            'label'=> '创建日期',
+                            'attribute' => 'created_at',
+                            'filter' => false, //不显示搜索框
+                            'format' => ['date', 'php:Y-m-d H:i:s'],
+                        ],
+                        [
+                            'label'=> '更新日期',
+                            'attribute' => 'updated_at',
+                            'filter' => false, //不显示搜索框
+                            'format' => ['date', 'php:Y-m-d H:i:s'],
+                        ],
+                        [
+                            'header' => "操作",
+                            'class' => 'yii\grid\ActionColumn',
+                            'template'=> '{edit} {status} {delete}',
+                            'buttons' => [
+                                'edit' => function ($url, $model, $key) {
+                                    return AddonHtmlHelper::edit(['edit', 'id' => $model->id]);
+                                },
+                                'status' => function ($url, $model, $key) {
+                                    return AddonHtmlHelper::status($model->status);
+                                },
+                                'delete' => function ($url, $model, $key) {
+                                    return AddonHtmlHelper::delete(['hide', 'id' => $model->id]);
+                                },
+                            ],
+                        ],
+                    ],
+                ]); ?>
+                <!-- /.box-body -->
             </div>
-            <div class="box-footer">
-                <?= LinkPager::widget([
-                    'pagination' => $pages
-                ]);?>
-            </div>
+            <!-- /.box -->
         </div>
     </div>
 </div>

@@ -32,7 +32,6 @@
                 'scenario' => 'default',
                 'partialMatchAttributes' => ['name'], // 模糊查询
                 'defaultOrder' => [
-                    'sort' => SORT_ASC,
                     'id' => SORT_DESC
                 ],
                 'pageSize' => $this->pageSize

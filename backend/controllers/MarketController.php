@@ -3,9 +3,14 @@
 
     use common\components\CurdTrait;
     use common\controllers\AddonsBaseController;
-    use addons\RfSignShoppingDay\common\models\Award;
+    use addons\RfTraderManager\common\models\TraderLog;
+    use addons\RfTraderManager\common\models\TraderList;
+    use addons\RfTraderManager\common\models\TraderChannel;
+    use addons\RfTraderManager\common\models\Market;
     use common\enums\StatusEnum;
+    use common\models\common\SearchModel;
     use yii\data\Pagination;
+    use yii;
 
     /**
      * Class AwardController
@@ -28,16 +33,42 @@
          */
         public function actionIndex()
         {
-            $data = TraderLog::find();
-            $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $this->pageSize]);
-            $models = $data->offset($pages->offset)
-                           ->orderBy('id desc')
-                           ->limit($pages->limit)
-                           ->all();
+            $searchModel = new SearchModel([
+                'model' => TraderLog::class,
+                'scenario' => 'default',
+                'partialMatchAttributes' => ['wxid'], // 模糊查询
+                'defaultOrder' => [
+                    'id' => SORT_DESC
+                ],
+                'pageSize' => $this->pageSize
+            ]);
+
+            $dataProvider = $searchModel
+                ->search(Yii::$app->request->queryParams);
+            //$dataProvider->query->andWhere(['>=', 'status', StatusEnum::DISABLED]);
 
             return $this->render($this->action->id, [
-                'models' => $models,
-                'pages' => $pages,
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+                'traderList' => TraderList::getList()
+            ]);
+        }
+
+        public function actionEdit()
+        {
+            $request = Yii::$app->request;
+            $id = $request->get('id', null);
+            $model = $this->findModel($id);
+
+            if ($model->load($request->post()) && $model->save())
+            {
+                return $this->redirect(['index']);
+            }
+
+            return $this->render($this->action->id, [
+                'model' => $model,
+                'traderList' => TraderList::getList(),
+                'channelList' => TraderChannel::getList()
             ]);
         }
 

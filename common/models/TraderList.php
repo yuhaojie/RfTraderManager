@@ -25,7 +25,7 @@
         public function rules()
         {
             return [
-                [['name'], 'required'],
+                [['name', 'wxname'], 'required'],
                 [['department', 'phone'], 'string'],
             ];
         }
@@ -38,8 +38,16 @@
             return [
                 'id' => 'ID',
                 'name' => '姓名',
+                'wxname' => '微信名',
                 'department' => '部门',
                 'phone' => '电话',
             ];
+        }
+
+        static public function getList()
+        {
+            $query = self::find();
+//            $count = $query->count();
+            return $query->select(['id', 'name', 'wxname'])->all();
         }
     }
