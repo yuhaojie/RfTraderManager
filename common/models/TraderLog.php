@@ -27,9 +27,20 @@
             return [
                 [['id', 'wxid'], 'required'],
                 [['channels', 'record_image'], 'string'],
+                [['traderList.name','traderList.wxname'], 'safe'],
             ];
         }
 
+        public function attributes()
+        {
+            $attributes = parent::attributes();
+            $channels = TraderChannel::getList();
+            foreach($channels as $value)
+            {
+                $attributes[] = $value->name;
+            }
+            return $attributes;
+        }
         /**
          * {@inheritdoc}
          */

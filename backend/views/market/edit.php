@@ -14,9 +14,9 @@ foreach($traderList as $value)
     $droplist[$value->id] = $value->name." : ".$value->wxname;
 }
 
-foreach($channelList as $value)
+if(!isset($droplist))
 {
-	$channels[$value->id] = $value->name;
+    $droplist = [];
 }
 ?>
 
@@ -30,10 +30,18 @@ foreach($channelList as $value)
                 'fieldConfig' => [
                     'template' => "<div class='col-sm-1 text-right'>{label}</div><div class='col-sm-11'>{input}{hint}{error}</div>",
                 ]
-            ]); ?>
+            ]);
+            ?>
             <div class="box-body">
                 <?= $form->field($model, 'id')->dropDownList($droplist, ['prompt'=>'请选择']); ?>
                 <?= $form->field($model, 'wxid')->textInput(); ?>
+                <?php
+                    if(isset($channelList)) {
+                        foreach ($channelList as $value) {
+                            $form->field($model, $value->name)->textInput();
+                        }
+                    }
+                ?>
                 <?= $form->field($model, 'fansum')->textInput(); ?>
                 <?= $form->field($model, 'record_image')->widget(Images::class, [
                     'config' => [

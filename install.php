@@ -24,6 +24,7 @@ CREATE TABLE `rf_addon_trader_log` (
   `channels` varchar(2048) DEFAULT NULL,
   `fansum` int(11) DEFAULT '0',
   `record_image` varchar(255) DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态(-1:已删除,0:禁用,1:正常)',
   `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)

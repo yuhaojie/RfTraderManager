@@ -1,6 +1,7 @@
 <?php
     namespace addons\RfTraderManager\backend\controllers;
 
+    use addons\RfArticle\common\models\Article;
     use common\components\CurdTrait;
     use common\controllers\AddonsBaseController;
     use addons\RfTraderManager\common\models\TraderList;
@@ -63,6 +64,56 @@
 
             return $this->render($this->action->id, [
                 'model' => $model
+            ]);
+        }
+
+        public function actionShow($id)
+        {
+            $model = $this->findModel($id);
+            $model->status = StatusEnum::ENABLED;
+            if ($model->save())
+            {
+                return $this->message("还原成功", $this->redirect(['recycle']));
+            }
+
+            return $this->message("还原失败", $this->redirect(['recycle']), 'error');
+        }
+
+        /**
+         * 删除
+         *
+         * @param $id
+         * @return mixed
+         */
+        public function actionHide($id)
+        {
+            $model = $this->findModel($id);
+            $model->status = StatusEnum::DELETE;
+            if ($model->save())
+            {
+                return $this->message("删除成功", $this->redirect(['index']));
+            }
+
+            return $this->message("删除失败", $this->redirect(['index']), 'error');
+        }
+
+        /**
+         * 回收站
+         *
+         * @return mixed
+         */
+        public function actionRecycle()
+        {
+            $data = Article::find()->where(['<', 'status', StatusEnum::DISABLED]);
+            $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $this->pageSize]);
+            $models = $data->offset($pages->offset)
+                ->orderBy('id desc')
+                ->limit($pages->limit)
+                ->all();
+
+            return $this->render($this->action->id, [
+                'models' => $models,
+                'pages' => $pages
             ]);
         }
 
