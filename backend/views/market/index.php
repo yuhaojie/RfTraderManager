@@ -5,6 +5,7 @@ use common\helpers\AddonHtmlHelper;
 
 $this->title = '渠道管理';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="row">
@@ -48,7 +49,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             //'format' => ['date', 'php:Y-m-d H:i:s'],
                         ],
                         'wxid',
-                        //'channels',
+                        [
+                            'label' => '渠道信息',
+                            'attribute' => 'channels',
+                            'filter' => false,
+                        ],
                         'fansum',
                         [
                             'label' => '考勤图片',

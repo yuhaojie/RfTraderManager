@@ -33,12 +33,13 @@ if(!isset($droplist))
             ]);
             ?>
             <div class="box-body">
-                <?= $form->field($model, 'id')->dropDownList($droplist, ['prompt'=>'请选择']); ?>
+                <?= $form->field($model, 'tid')->dropDownList($droplist, ['prompt'=>'请选择']); ?>
                 <?= $form->field($model, 'wxid')->textInput(); ?>
                 <?php
                     if(isset($channelList)) {
                         foreach ($channelList as $value) {
-                            $form->field($model, $value->name)->textInput();
+                        	$var = 'channel'.$value->id;
+                            echo $form->field($model, $var)->textInput();
                         }
                     }
                 ?>

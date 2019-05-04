@@ -19,7 +19,8 @@ CREATE TABLE `rf_addon_trader_list` (
 -- ----------------------------
 DROP TABLE IF EXISTS `rf_addon_trader_log`;
 CREATE TABLE `rf_addon_trader_log` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tid` int(11) NOT NULL,
   `wxid` varchar(255) NOT NULL,
   `channels` varchar(2048) DEFAULT NULL,
   `fansum` int(11) DEFAULT '0',

@@ -3,6 +3,7 @@
 
     use addons\RfArticle\common\models\Article;
     use common\components\CurdTrait;
+    use common\components\Serializer;
     use common\controllers\AddonsBaseController;
     use addons\RfTraderManager\common\models\TraderLog;
     use addons\RfTraderManager\common\models\TraderList;
@@ -21,6 +22,7 @@
     class MarketController extends AddonsBaseController
     {
         use CurdTrait;
+        use Serializer;
 
         /**
          * @var string
@@ -55,6 +57,34 @@
             ]);
         }
 
+        public function parseChannels($model, $channels)
+        {
+            $jsonstr = $model->channels;
+            $chldata = $this->decode($jsonstr);
+
+            foreach($channels as $channel)
+            {
+                $cname = 'channel'.$channel->id;
+                $model->$cname = $chldata[$channel->id];
+            }
+        }
+
+        public function saveChannels($model, $channels)
+        {
+            if(!isset($channels))
+                return;
+
+            $channelarry = [];
+            foreach($channels as $channel)
+            {
+                $chlname = 'channel'.$channel->id;
+                $channelarry[$channel->id] = $model->$chlname;
+                unset($model[$chlname]);
+            }
+
+            $model['channels'] = $this->encode($channelarry);
+        }
+
         public function actionEdit()
         {
             $request = Yii::$app->request;
@@ -62,21 +92,31 @@
             $model = $this->findModel($id);
             $channels = TraderChannel::getList();
 
-            foreach($channels as $value)
-            {
+//            foreach($channels as $value)
+//            {
 //                $value->value = 0;
 //                $model[$value->id] =$value->attributes;
 //                $modle[$value->id]['value'] = 0;
 //                $mode[$value->name] = 0;
-                $chlarry[$value->name] = 0;
-            }
-            $model->setAttributes($chlarry, false);
+//                $chlarry[$value->name] = 0;
+//            }
+//            $model->setAttributes($chlarry, false);
 
 
-            if ($model->load($request->post()) && $model->save())
+            if ($model->load($request->post()))
             {
+                $this->saveChannels($model, $channels);
+                $model->save();
+                /*
+                if (!$model->save()) {
+                    return $this->render('error', ['errors' => $model->errors]);
+                }
+                */
                 return $this->redirect(['index']);
             }
+
+            if(!$model->isNewRecord && isset($channels))
+                $this->parseChannels($model, $channels);
 
             return $this->render($this->action->id, [
                 'model' => $model,
