@@ -39,11 +39,11 @@ if(!isset($droplist))
                     if(isset($channelList)) {
                         foreach ($channelList as $value) {
                         	$var = 'channel'.$value->id;
-                            echo $form->field($model, $var)->textInput();
+                            echo $form->field($model, $var)->textInput(['type'=>'number', 'class'=>'channel']);
                         }
                     }
                 ?>
-                <?= $form->field($model, 'fansum')->textInput(); ?>
+                <?= $form->field($model, 'fansum')->textInput(['type'=>'number', 'id'=>'fansum']); ?>
                 <?= $form->field($model, 'record_image')->widget(Images::class, [
                     'config' => [
                         // 可设置自己的上传地址, 不设置则默认地址icon
@@ -78,3 +78,14 @@ if(!isset($droplist))
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(".channel").blur(function(){
+        var fansum = 0;
+        $(".channel").each(function(){
+            fansum += parseInt($(this).val());
+        });
+
+        $("#fansum").val(fansum);
+    });
+</script>
