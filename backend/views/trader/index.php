@@ -31,7 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'id',
                         'name',
                         'wxname',
-                        'password',
+                        [
+                            'label'=> '密码',
+                            'attribute' => 'password',
+                            'filter' => false, //不显示搜索框
+                        ],
                         'phone',
                         'department',
                         [

@@ -55,10 +55,15 @@
         {
             $request = Yii::$app->request;
             $id = $request->get('id', null);
-            $model = $this->findModel($id);
+            $model = TraderList::loadData($id);
 
-            if ($model->load($request->post()) && $model->save())
+            if ($model->load($request->post()))
             {
+//                $model->saveData();
+                if (!$model->saveData()) {
+                    return $this->render('error', ['errors' => $model->getErrors()]);
+                }
+
                 return $this->redirect(['index']);
             }
 
@@ -89,9 +94,16 @@
         {
             $model = $this->findModel($id);
             $model->status = StatusEnum::DELETE;
-            if ($model->save())
+            $model->password = '123456';
+            $model->passcode = '123456';
+
+            if ($model->save() || empty($model->getErrors()))
             {
                 return $this->message("删除成功", $this->redirect(['index']));
+            }
+            else
+            {
+                return $this->render('error', ['errors' => $model->errors]);
             }
 
             return $this->message("删除失败", $this->redirect(['index']), 'error');

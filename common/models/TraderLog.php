@@ -15,6 +15,7 @@
 
         public function __construct()
         {
+            $this->bSave = false;
             $channels = TraderChannel::getList();
             if(isset($channels))
             {
