@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box-body">
                 <?= $form->field($model, 'name')->textInput(); ?>
                 <?= $form->field($model, 'wxname')->textInput(); ?>
+                <?= $form->field($model, 'password')->passwordInput(); ?>
                 <?= $form->field($model, 'phone')->textInput(); ?>
                 <?= $form->field($model, 'department')->textInput(); ?>
                 <div class="row">

@@ -43,6 +43,7 @@
             return [
                 'id' => 'ID',
                 'name' => '渠道名',
+                'password' => '密码'
             ];
         }
 

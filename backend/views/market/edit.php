@@ -82,6 +82,7 @@ if(!isset($droplist))
 <script type="text/javascript">
     $(".channel").blur(function(){
         var fansum = 0;
+
         $(".channel").each(function(){
             fansum += parseInt($(this).val());
         });

@@ -6,6 +6,7 @@ CREATE TABLE `rf_addon_trader_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL COMMENT '姓名',
   `wxname` varchar(50) NOT NULL COMMENT '姓名',
+  `password` varchar(50) NOT NULL COMMENT '密码',
   `phone` varchar(50) COMMENT '电话',
   `department` varchar(50) NOT NULL COMMENT '部门',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态(-1:已删除,0:禁用,1:正常)',

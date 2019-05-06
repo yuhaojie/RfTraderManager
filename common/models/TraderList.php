@@ -25,7 +25,7 @@
         public function rules()
         {
             return [
-                [['name', 'wxname'], 'required'],
+                [['name', 'wxname', 'password'], 'required'],
                 [['department', 'phone'], 'string'],
             ];
         }
@@ -39,6 +39,7 @@
                 'id' => 'ID',
                 'name' => '姓名',
                 'wxname' => '微信名',
+                'password' => '密码',
                 'department' => '部门',
                 'phone' => '电话',
             ];
